@@ -15,14 +15,29 @@ for (let i = 0; i < rank.length; i++) {
   }
 }
 
+//shuffle deck of cards
+function shuffleDeck(deck) {
+  let randomCardA;
+  let randomCardB;
+  let tempX;
+  for (let i = 0; i < deck.length; i++) {
+    randomCardA = Math.floor(Math.random() * deck.length);
+    randomCardB = Math.floor(Math.random() * deck.length);
+    tempX = deck[randomCardA];
+    deck[randomCardA] = deck[randomCardB];
+    deck[randomCardB] = tempX;
+  }
+}
+
 let playerCards = [];
 let dealerCards = [];
 
-//console.log("playerCards");
-// console.log(playerCards);
-// console.log("dealerCards");
-// console.log(dealerCards);
+console.log("playerCards");
+console.log(playerCards);
+//console.log("dealerCards");
+//console.log(dealerCards);
 
+//score players cards
 let playerScore = ""; //aces = 1 or 11
 let playerValues = []; //aces = 1
 
@@ -71,103 +86,54 @@ const calculatePlayerScore = () => {
     let index = playerValues.indexOf(11);
     playerValues[index] = 1;
     add();
-    console.log("adjusted player score");
-    console.log(playerScore);
+    //console.log("adjusted player score");
+    //console.log(playerScore);
   }
 };
 
-const placeCardImages = () => {
-  let cardImage = document.createElement("img");
-  cardImage.src = "./images/2_of_clubs.png";
-  playerHand.appendChild(cardImage);
-  //return `<img src='${url}' />`;
+//put player card images out on the table
+const placePlayerCardImages = (cards) => {
+  for (i = 0; 0 < cards.length; i++) {
+    console.log(cards[i]);
+    let cardImage = document.createElement("img");
+    cardImage.src = `./images/${cards[i].rank}_of_${cards[i].suit}.png`;
+    playerHand.appendChild(cardImage);
+  }
+  return;
 };
 
-//deal 4 random cards to player/dealer when deal button is pressed
+//put dealer card images out on the table
+const placeDealerCardImages = (cards) => {
+  for (i = 0; 0 < cards.length; i++) {
+    let cardImage = document.createElement("img");
+    cardImage.src = `./images/${cards[i].rank}_of_${cards[i].suit}.png`;
+    dealerHand.appendChild(cardImage);
+  }
+  return;
+};
+
+//deal 2 random cards to player when deal button is pressed
 let dealToPlayer = () => {
   playerCards.push(deck.shift());
-  placeCardImages();
   calculatePlayerScore();
-  //return (playerHand.innerHTML += playerCards);
-  //playerHand.appendChild(randomCard());
 };
 
+//deal 2 random cards to dealer when deal button is pressed
 let dealToDealer = () => {
-  //randomCard();
-  //dealerCards.push(deck.splice(cardIndex, 1));
   dealerCards.push(deck.shift());
-  placeCardImages(dealerCards);
   //calculateDealerScore();
-  //return (dealerHand.innerHTML += dealerCards);
-  //dealerHand.appendChild(card2);
 };
 
 //deal button event handler
 dealButton.addEventListener("click", function (e) {
+  shuffleDeck(deck);
   dealToPlayer();
   dealToDealer();
   dealToPlayer();
   dealToDealer();
+  placePlayerCardImages(playerCards);
+  placeDealerCardImages(dealerCards);
 });
 
 //hit button event handler
 hitButton.addEventListener("click", dealToPlayer);
-
-//extra code, removed, but still may use
-
-//deal cards to player and Dealer when 'deal' button are pressed
-// let deal = (hand, card) => {
-//   hand.appendChild(cardImage.cloneNode(true));
-//   return console.log("card dealt");
-// };
-
-/*
-let deal = (hand, card) => {
-  hand.appendChild(cardImage.cloneNode(true));
-
-};
-
-dealButton.addEventListener("click", function () {
-  deal(playerHand, randomCard());
-});
-dealButton.addEventListener("click", function () {
-  deal(dealerHand, randomCard());
-});
-
-hitButton.addEventListener("click", function () {
-  deal(playerHand, randomCard());
-});
-
-/*
- function checkAcesAgain() {
-   if (sum of playerValues(loop?) > 21) {
-
-   }
- }
-*/
-
-//code related to accessing image files
-
-// //add card images for player and dealer hands
-// for (i = 0; i < playerCards.length; i++) {
-//   playerCards[0].ranks;
-// }
-
-// let usedCardsDeck = () => {
-//   usedCards.push(drawnCard);
-//   console.log(usedCards[0].ranks);
-//   console.log(usedCards[0].suits);
-//   // usedCards[0] = { status: "used" };
-//   console.log(drawnCard);
-//   randomCard();
-//   //console.log(usedCards);
-// };
-// //access cards from 'images' folder
-// let cardImage = document.createElement("card");
-// cardImage.src = "./images/10_of_hearts.png";
-// `./images/${usedCards[0].ranks}_of_${usedCards[0].suits}.png`;
-
-// //generates a random card
-// let randomCard = () => {
-//   return (cardIndex = deck.indexOf(deck[Math.floor(Math.random() * 53)]));
-// };
