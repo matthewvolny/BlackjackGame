@@ -15,29 +15,26 @@ for (let i = 0; i < rank.length; i++) {
   }
 }
 
-//draw random card and place in player hand
-let dealerCards = [];
+//generates a random card
 let playerCards = [];
+let dealerCards = [];
 
 let randomCard = () => {
-  return (drawnCard = deck[Math.floor(Math.random() * 53)]); //error here because there are no ones (need to fix)
+  return (cardIndex = deck.indexOf(deck[Math.floor(Math.random() * 53)]));
 };
 
 console.log(playerCards);
-console.log("-------");
 console.log(dealerCards);
-console.log("-------");
-console.log(deck);
 
-let usedCardsDeck = () => {
-  usedCards.push(drawnCard);
-  console.log(usedCards[0].ranks);
-  console.log(usedCards[0].suits);
-  // usedCards[0] = { status: "used" };
-  console.log(drawnCard);
-  randomCard();
-  //console.log(usedCards);
-};
+// let usedCardsDeck = () => {
+//   usedCards.push(drawnCard);
+//   console.log(usedCards[0].ranks);
+//   console.log(usedCards[0].suits);
+//   // usedCards[0] = { status: "used" };
+//   console.log(drawnCard);
+//   randomCard();
+//   //console.log(usedCards);
+// };
 //access cards from 'images' folder
 let cardImage = document.createElement("card");
 cardImage.src = "./images/10_of_hearts.png";
@@ -68,27 +65,22 @@ for (i = 0; i < playerHand.length; i++) {
  }
 */
 
-//deal cards to player and Dealer when 'deal' button are pressed
+//deal 4 random cards to player/dealer when deal button is pressed
 let dealToPlayer = () => {
   randomCard();
-
-  return playerCards.push(drawnCard);
-
-  //playerHand.innerHTML += randomCard();
+  playerCards.push(deck.splice(cardIndex, 1));
+  return (playerHand.innerHTML += playerCards);
   //playerHand.appendChild(randomCard());
 };
 
 let dealToDealer = () => {
   randomCard();
-
-  return dealerCards.push(drawnCard);
-
-  //dealerHand.innerHTML += randomCard();
+  dealerCards.push(deck.splice(cardIndex, 1));
+  return (dealerHand.innerHTML += playerCards);
   //dealerHand.appendChild(card2);
 };
 
-//deal cards to player when hit button is pressed
-
+//deal button event handler
 dealButton.addEventListener("click", function (e) {
   dealToPlayer();
   dealToDealer();
