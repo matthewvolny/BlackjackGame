@@ -15,55 +15,71 @@ for (let i = 0; i < rank.length; i++) {
   }
 }
 
-//generates a random card
+
 let playerCards = [];
 let dealerCards = [];
-
-let randomCard = () => {
-  return (cardIndex = deck.indexOf(deck[Math.floor(Math.random() * 53)]));
-};
 
 console.log(playerCards);
 console.log(dealerCards);
 
-// let usedCardsDeck = () => {
-//   usedCards.push(drawnCard);
-//   console.log(usedCards[0].ranks);
-//   console.log(usedCards[0].suits);
-//   // usedCards[0] = { status: "used" };
-//   console.log(drawnCard);
-//   randomCard();
-//   //console.log(usedCards);
-// };
-//access cards from 'images' folder
-let cardImage = document.createElement("card");
-cardImage.src = "./images/10_of_hearts.png";
-// `./images/${usedCards[0].ranks}_of_${usedCards[0].suits}.png`;
+//generates a random card
+let randomCard = () => {
+  return (cardIndex = deck.indexOf(deck[Math.floor(Math.random() * 53)]));
+};
 
-/*total score of players hand
-let playerScore = "";    //aces = 1 or 11
-let playerValues = [];   //aces = 1
+
+let = playerHand = [
+  { rank: "5", suit: "diamonds" },
+  { rank: "3", suit: "diamonds" },
+  { rank: "queen", suit: "diamonds" },
+  { rank: "ace", suit: "diamonds" },
+];
+
+let playerScore = ""; //aces = 1 or 11
+let playerValues = []; //aces = 1
+
 for (i = 0; i < playerHand.length; i++) {
- if drawnCard[i].ranks === "2" || "3" || "4" || "5" || "6" || "7" || "8" || "9" || "10") {
-   playerValues.push(drawnCard[i].ranks);
- } else if (drawnCard[i].ranks === "jack" || "queen" || "king") {
-   playerValues.push(10);
- } else {
-   playerValues.push(11);
- }
-//assess Aces
- if (sum of playerValues(loop?) > 21) {
-   playerValues.replace("11", "1");
-   sum player values;
-   checkAcesAgain();
- }
+  if (
+    playerHand[i].rank === "2" ||
+    playerHand[i].rank === "3" ||
+    playerHand[i].rank === "4" ||
+    playerHand[i].rank === "5" ||
+    playerHand[i].rank === "6" ||
+    playerHand[i].rank === "7" ||
+    playerHand[i].rank === "8" ||
+    playerHand[i].rank === "9" ||
+    playerHand[i].rank === "10"
+  ) {
+    console.log(`rank: ${playerHand[i].rank}`);
+    playerValues.push(Number(playerHand[i].rank));
+  } else if (
+    playerHand[i].rank === "jack" ||
+    playerHand[i].rank === "queen" ||
+    playerHand[i].rank === "king"
+  ) {
+    console.log(`rank: ${playerHand[i].rank}`);
+    playerValues.push(10);
+  } else {
+    console.log(`rank: ${playerHand[i].rank}`);
+    playerValues.push(11);
+  }
+}
 
- function checkAcesAgain() {
-   if (sum of playerValues(loop?) > 21) {
+console.log(playerValues);
 
-   }
- }
-*/
+const add = () => {
+  const reducer = (previousValue, currentValue) => previousValue + currentValue;
+  return (playerScore = playerValues.reduce(reducer));
+};
+add();
+console.log(playerScore);
+
+if (playerScore > 21) {
+  let index = playerValues.indexOf(11);
+  playerValues[index] = 1;
+  add();
+  console.log(playerScore);
+}
 
 //deal 4 random cards to player/dealer when deal button is pressed
 let dealToPlayer = () => {
@@ -88,8 +104,8 @@ dealButton.addEventListener("click", function (e) {
   dealToDealer();
 });
 
+//hit button event handler
 hitButton.addEventListener("click", dealToPlayer);
-hitButton.addEventListener("click", dealToDealer);
 
 //extra code, removed, but still may use
 
@@ -116,6 +132,34 @@ hitButton.addEventListener("click", function () {
   deal(playerHand, randomCard());
 });
 
+/*
+ function checkAcesAgain() {
+   if (sum of playerValues(loop?) > 21) {
+
+   }
+ }
+*/
+
 
 
 */
+//code related to accessing image files
+
+// //add card images for player and dealer hands
+// for (i = 0; i < playerCards.length; i++) {
+//   playerCards[0].ranks;
+// }
+
+// let usedCardsDeck = () => {
+//   usedCards.push(drawnCard);
+//   console.log(usedCards[0].ranks);
+//   console.log(usedCards[0].suits);
+//   // usedCards[0] = { status: "used" };
+//   console.log(drawnCard);
+//   randomCard();
+//   //console.log(usedCards);
+// };
+// //access cards from 'images' folder
+// let cardImage = document.createElement("card");
+// cardImage.src = "./images/10_of_hearts.png";
+// `./images/${usedCards[0].ranks}_of_${usedCards[0].suits}.png`;
