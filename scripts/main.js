@@ -6,47 +6,112 @@ let dealerHand = document.getElementById("dealer-hand");
 
 //deck of 52 cards
 // prettier-ignore
-let ranks = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "jack", "queen", "king", "ace"];
-let suits = ["hearts", "clubs", "diamonds", "spades"];
+let rank = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "jack", "queen", "king", "ace"];
+let suit = ["hearts", "clubs", "diamonds", "spades"];
 let deck = [];
-for (let i = 0; i < ranks.length; i++) {
-  for (let j = 0; j < suits.length; j++) {
-    deck.push({ ranks: ranks[i], suits: suits[j] });
+for (let i = 0; i < rank.length; i++) {
+  for (let j = 0; j < suit.length; j++) {
+    deck.push({ rank: rank[i], suit: suit[j] });
   }
 }
-//draw random card
-let usedCards = [];
+
+//draw random card and place in player hand
+let dealerCards = [];
+let playerCards = [];
+
 let randomCard = () => {
-  let drawnCard = deck[Math.floor(Math.random() * 53)];
+  return (drawnCard = deck[Math.floor(Math.random() * 53)]); //error here because there are no ones (need to fix)
+};
+
+console.log(playerCards);
+console.log("-------");
+console.log(dealerCards);
+console.log("-------");
+console.log(deck);
+
+let usedCardsDeck = () => {
   usedCards.push(drawnCard);
   console.log(usedCards[0].ranks);
   console.log(usedCards[0].suits);
   // usedCards[0] = { status: "used" };
+  console.log(drawnCard);
+  randomCard();
+  //console.log(usedCards);
 };
-
+//access cards from 'images' folder
 let cardImage = document.createElement("card");
-cardImage.src = "./images/10_of_spades.png";
-
+cardImage.src = "./images/10_of_hearts.png";
 // `./images/${usedCards[0].ranks}_of_${usedCards[0].suits}.png`;
 
-randomCard();
-console.log(usedCards);
+/*total score of players hand
+let playerScore = "";    //aces = 1 or 11
+let playerValues = [];   //aces = 1
+for (i = 0; i < playerHand.length; i++) {
+ if drawnCard[i].ranks === "2" || "3" || "4" || "5" || "6" || "7" || "8" || "9" || "10") {
+   playerValues.push(drawnCard[i].ranks);
+ } else if (drawnCard[i].ranks === "jack" || "queen" || "king") {
+   playerValues.push(10);
+ } else {
+   playerValues.push(11);
+ }
+//assess Aces
+ if (sum of playerValues(loop?) > 21) {
+   playerValues.replace("11", "1");
+   sum player values;
+   checkAcesAgain();
+ }
 
-//deal cards to player and Dealer when 'deal' and 'hit' button are pressed
-let deal = (hand, card) => {
-  // hand.innerText += randomCard();
-  hand.appendChild(cardImage.cloneNode(true));
+ function checkAcesAgain() {
+   if (sum of playerValues(loop?) > 21) {
+
+   }
+ }
+*/
+
+//deal cards to player and Dealer when 'deal' button are pressed
+let dealToPlayer = () => {
+  randomCard();
+
+  return playerCards.push(drawnCard);
+
+  //playerHand.innerHTML += randomCard();
+  //playerHand.appendChild(randomCard());
 };
 
-// let dealToPlayer = () => {
-//   playerHand.innerText += randomCard();
-//   playerHand.appendChild(card1);
+let dealToDealer = () => {
+  randomCard();
+
+  return dealerCards.push(drawnCard);
+
+  //dealerHand.innerHTML += randomCard();
+  //dealerHand.appendChild(card2);
+};
+
+//deal cards to player when hit button is pressed
+
+dealButton.addEventListener("click", function (e) {
+  dealToPlayer();
+  dealToDealer();
+  dealToPlayer();
+  dealToDealer();
+});
+
+hitButton.addEventListener("click", dealToPlayer);
+hitButton.addEventListener("click", dealToDealer);
+
+//extra code, removed, but still may use
+
+//deal cards to player and Dealer when 'deal' button are pressed
+// let deal = (hand, card) => {
+//   hand.appendChild(cardImage.cloneNode(true));
+//   return console.log("card dealt");
 // };
 
-// let dealToDealer = () => {
-//   dealerHand.innerText += randomCard();
-//   dealerHand.appendChild(card2);
-// };
+/*
+let deal = (hand, card) => {
+  hand.appendChild(cardImage.cloneNode(true));
+
+};
 
 dealButton.addEventListener("click", function () {
   deal(playerHand, randomCard());
@@ -55,7 +120,10 @@ dealButton.addEventListener("click", function () {
   deal(dealerHand, randomCard());
 });
 
-// dealButton.addEventListener("click", dealToPlayer);
-// dealButton.addEventListener("click", dealToDealer);
-// hitButton.addEventListener("click", dealToPlayer);
-// hitButton.addEventListener("click", dealToDealer);
+hitButton.addEventListener("click", function () {
+  deal(playerHand, randomCard());
+});
+
+
+
+*/
