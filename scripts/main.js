@@ -15,84 +15,90 @@ for (let i = 0; i < rank.length; i++) {
   }
 }
 
-
 let playerCards = [];
 let dealerCards = [];
 
-console.log(playerCards);
-console.log(dealerCards);
-
-//generates a random card
-let randomCard = () => {
-  return (cardIndex = deck.indexOf(deck[Math.floor(Math.random() * 53)]));
-};
-
-
-let = playerHand = [
-  { rank: "5", suit: "diamonds" },
-  { rank: "3", suit: "diamonds" },
-  { rank: "queen", suit: "diamonds" },
-  { rank: "ace", suit: "diamonds" },
-];
+//console.log("playerCards");
+// console.log(playerCards);
+// console.log("dealerCards");
+// console.log(dealerCards);
 
 let playerScore = ""; //aces = 1 or 11
 let playerValues = []; //aces = 1
 
-for (i = 0; i < playerHand.length; i++) {
-  if (
-    playerHand[i].rank === "2" ||
-    playerHand[i].rank === "3" ||
-    playerHand[i].rank === "4" ||
-    playerHand[i].rank === "5" ||
-    playerHand[i].rank === "6" ||
-    playerHand[i].rank === "7" ||
-    playerHand[i].rank === "8" ||
-    playerHand[i].rank === "9" ||
-    playerHand[i].rank === "10"
-  ) {
-    console.log(`rank: ${playerHand[i].rank}`);
-    playerValues.push(Number(playerHand[i].rank));
-  } else if (
-    playerHand[i].rank === "jack" ||
-    playerHand[i].rank === "queen" ||
-    playerHand[i].rank === "king"
-  ) {
-    console.log(`rank: ${playerHand[i].rank}`);
-    playerValues.push(10);
-  } else {
-    console.log(`rank: ${playerHand[i].rank}`);
-    playerValues.push(11);
+const calculatePlayerScore = () => {
+  for (i = 0; i < playerCards.length; i++) {
+    if (
+      playerCards[i].rank === "2" ||
+      playerCards[i].rank === "3" ||
+      playerCards[i].rank === "4" ||
+      playerCards[i].rank === "5" ||
+      playerCards[i].rank === "6" ||
+      playerCards[i].rank === "7" ||
+      playerCards[i].rank === "8" ||
+      playerCards[i].rank === "9" ||
+      playerCards[i].rank === "10"
+    ) {
+      //console.log(`rank: ${playerCards[i].rank}`);
+      playerValues.push(Number(playerCards[i].rank));
+    } else if (
+      playerCards[i].rank === "jack" ||
+      playerCards[i].rank === "queen" ||
+      playerCards[i].rank === "king"
+    ) {
+      //console.log(`rank: ${playerCards[i].rank}`);
+      playerValues.push(10);
+    } else {
+      //console.log(`rank: ${playerCards[i].rank}`);
+      playerValues.push(11);
+    }
   }
-}
 
-console.log(playerValues);
+  //console.log("player values");
+  //console.log(playerValues);
 
-const add = () => {
-  const reducer = (previousValue, currentValue) => previousValue + currentValue;
-  return (playerScore = playerValues.reduce(reducer));
-};
-add();
-console.log(playerScore);
+  const add = () => {
+    const reducer = (previousValue, currentValue) =>
+      previousValue + currentValue;
+    return (playerScore = playerValues.reduce(reducer));
+  };
 
-if (playerScore > 21) {
-  let index = playerValues.indexOf(11);
-  playerValues[index] = 1;
   add();
-  console.log(playerScore);
-}
+  //console.log("playerScore");
+  //console.log(playerScore);
+
+  if (playerScore > 21) {
+    let index = playerValues.indexOf(11);
+    playerValues[index] = 1;
+    add();
+    console.log("adjusted player score");
+    console.log(playerScore);
+  }
+};
+
+const placeCardImages = () => {
+  let cardImage = document.createElement("img");
+  cardImage.src = "./images/2_of_clubs.png";
+  playerHand.appendChild(cardImage);
+  //return `<img src='${url}' />`;
+};
 
 //deal 4 random cards to player/dealer when deal button is pressed
 let dealToPlayer = () => {
-  randomCard();
-  playerCards.push(deck.splice(cardIndex, 1));
-  return (playerHand.innerHTML += playerCards);
+  playerCards.push(deck.shift());
+  placeCardImages();
+  calculatePlayerScore();
+  //return (playerHand.innerHTML += playerCards);
   //playerHand.appendChild(randomCard());
 };
 
 let dealToDealer = () => {
-  randomCard();
-  dealerCards.push(deck.splice(cardIndex, 1));
-  return (dealerHand.innerHTML += playerCards);
+  //randomCard();
+  //dealerCards.push(deck.splice(cardIndex, 1));
+  dealerCards.push(deck.shift());
+  placeCardImages(dealerCards);
+  //calculateDealerScore();
+  //return (dealerHand.innerHTML += dealerCards);
   //dealerHand.appendChild(card2);
 };
 
@@ -140,9 +146,6 @@ hitButton.addEventListener("click", function () {
  }
 */
 
-
-
-*/
 //code related to accessing image files
 
 // //add card images for player and dealer hands
@@ -163,3 +166,8 @@ hitButton.addEventListener("click", function () {
 // let cardImage = document.createElement("card");
 // cardImage.src = "./images/10_of_hearts.png";
 // `./images/${usedCards[0].ranks}_of_${usedCards[0].suits}.png`;
+
+// //generates a random card
+// let randomCard = () => {
+//   return (cardIndex = deck.indexOf(deck[Math.floor(Math.random() * 53)]));
+// };
