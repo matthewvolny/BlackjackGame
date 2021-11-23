@@ -3,6 +3,11 @@ let hitButton = document.getElementById("hit-button");
 let standButton = document.getElementById("stand-button");
 let playerHand = document.getElementById("player-hand");
 let dealerHand = document.getElementById("dealer-hand");
+let msg1 = document.getElementById("messages1");
+let msg2 = document.getElementById("messages2");
+let msg3 = document.getElementById("messages3");
+let msg4 = document.getElementById("messages4");
+let playAgainButton = document.getElementById("play-again");
 
 //deck of 52 cards
 // prettier-ignore
@@ -33,11 +38,11 @@ function shuffleDeck(deck) {
 //compare player and dealer scores
 const compareScores = () => {
   if (playerScore > dealerScore) {
-    console.log("you win!");
+    msg1.innerHTML = "You win!";
   } else if (playerScore === dealerScore) {
-    console.log("it's a tie");
+    msg1.innerHTML = "Sorry, it's a tie, try again!";
   } else {
-    console.log("dealer wins!");
+    msg4.innerHTML = "Sorry, Dealer wins!";
   }
 };
 
@@ -58,18 +63,15 @@ const calculatePlayerScore = () => {
   const reducer = (previousValue, currentValue) => previousValue + currentValue;
   playerScore = playerValues.reduce(reducer);
   if (playerScore === 21) {
-    console.log("you win!");
-  } else if (playerScore > 21 && dealerValues.some(eleven)) {
+    msg1.innerHTML = "You win!";
+  } else if (playerScore > 21 && playerValues.some(eleven)) {
     let index = playerValues.indexOf(11);
     playerValues[index] = 1;
     calculatePlayerScore();
-    //console.log("adjusted player score");
-    //console.log(playerScore);
-  } else {
-    console.log("player loses!");
+  } else if (playerScore > 21) {
+    msg2.innerHTML = "Sorry, you bust!";
   }
-  console.log("playerScore");
-  console.log(playerScore);
+  msg1.innerHTML = `Your score is ${playerScore}`;
 };
 
 //score dealers cards
@@ -82,21 +84,17 @@ const calculateDealerScore = () => {
   dealerScore = dealerValues.reduce(reducer);
   if (dealerScore < 17) {
     dealToDealer();
-    //document.innerHTML...;
   } else if (dealerScore > 21 && dealerValues.some(eleven)) {
     let index = dealerValues.indexOf(11);
     dealerValues[index] = 1;
     calculateDealerScore();
-    //console.log("adjusted player score");
-    //console.log(playerScore);
   } else if (dealerScore > 21) {
-    console.log("dealer loses!");
+    msg4.innerHTML = "Dealer busts";
+    msg2.innerHTML = "You win!";
   } else {
     compareScores();
   }
-
-  console.log("dealerScore");
-  console.log(dealerScore);
+  msg3.innerHTML = `Dealer's score is ${dealerScore}`;
 };
 
 //convert player card ranks to values
@@ -114,24 +112,18 @@ const calculatePlayerValues = () => {
       playerCards[i].rank === "9" ||
       playerCards[i].rank === "10"
     ) {
-      console.log(`rank: ${playerCards[i].rank}`);
       playerValues.push(Number(playerCards[i].rank));
     } else if (
       playerCards[i].rank === "jack" ||
       playerCards[i].rank === "queen" ||
       playerCards[i].rank === "king"
     ) {
-      console.log(`rank: ${playerCards[i].rank}`);
       playerValues.push(10);
     } else {
-      console.log(`rank: ${playerCards[i].rank}`);
       playerValues.push(11);
     }
-    calculatePlayerScore();
   }
-
-  console.log("player values");
-  console.log(playerValues);
+  calculatePlayerScore();
 };
 
 //convert dealer card ranks to values
@@ -149,54 +141,40 @@ const calculateDealerValues = () => {
       dealerCards[i].rank === "9" ||
       dealerCards[i].rank === "10"
     ) {
-      console.log(`rank: ${dealerCards[i].rank}`);
       dealerValues.push(Number(dealerCards[i].rank));
     } else if (
       dealerCards[i].rank === "jack" ||
       dealerCards[i].rank === "queen" ||
       dealerCards[i].rank === "king"
     ) {
-      console.log(`rank: ${dealerCards[i].rank}`);
       playerValues.push(10);
     } else {
-      console.log(`rank: ${dealerCards[i].rank}`);
       dealerValues.push(11);
     }
     calculateDealerScore();
-  }
-
-  console.log("dealer values");
-  console.log(dealerValues);
-};
-
-//put player card images out on the table
-const placePlayerCardImages = () => {
-  for (i = 0; 0 < playerCards.length; i++) {
-    console.log(playerCards[i]);
-    let cardImage = document.createElement("img");
-    cardImage.src = `../images/${playerCards[i].rank}_of_${playerCards[i].suit}.png`;
-    playerHand.appendChild(cardImage);
-  }
-};
-
-//put dealer card images out on the table
-const placeDealerCardImages = () => {
-  for (i = 0; 0 < dealerCards.length; i++) {
-    let cardImage = document.createElement("img");
-    cardImage.src = `../images/${cards[i].rank}_of_${cards[i].suit}.png`;
-    dealerHand.appendChild(cardImage);
   }
 };
 
 //deal 2 random cards to player when deal button is pressed
 let dealToPlayer = () => {
-  return playerCards.push(deck.shift());
+  let cards = deck.shift();
+  let rank = cards.rank;
+  let suit = cards.suit;
+  let cardImage = document.createElement("img");
+  cardImage.src = `../images/${rank}_of_${suit}.png`;
+  playerHand.appendChild(cardImage);
+  return playerCards.push(cards);
 };
 
 //deal 2 random cards to dealer when deal button is pressed
 let dealToDealer = () => {
-  return dealerCards.push(deck.shift());
-  //calculateDealerScore();
+  let cards = deck.shift();
+  let rank = cards.rank;
+  let suit = cards.suit;
+  let cardImage = document.createElement("img");
+  cardImage.src = `../images/${rank}_of_${suit}.png`;
+  dealerHand.appendChild(cardImage);
+  return dealerCards.push(cards);
 };
 
 //deal button event handler
@@ -206,21 +184,20 @@ dealButton.addEventListener("click", function (e) {
   dealToDealer();
   dealToPlayer();
   dealToDealer();
-  placePlayerCardImages();
-  placeDealerCardImages();
   calculatePlayerValues();
 });
 
 //hit button event handler
 hitButton.addEventListener("click", function (e) {
   dealToPlayer();
-  placePlayerCardImages();
   calculatePlayerValues();
 });
 
 //stand button event handler
 standButton.addEventListener("click", function (e) {
   calculateDealerValues();
-  //dealToDealer();
-  //placeDealerCardImages(dealerCards);
+});
+
+playAgainButton.addEventListener("click", function (e) {
+  window.location.reload();
 });
