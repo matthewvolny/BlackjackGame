@@ -54,16 +54,19 @@ let playerScore = ""; //aces = 1 or 11
 let playerValues = [];
 
 const calculatePlayerScore = () => {
+  const eleven = (element) => element === 11;
   const reducer = (previousValue, currentValue) => previousValue + currentValue;
   playerScore = playerValues.reduce(reducer);
   if (playerScore === 21) {
     console.log("you win!");
-  } else if (playerScore > 21) {
+  } else if (playerScore > 21 && dealerValues.some(eleven)) {
     let index = playerValues.indexOf(11);
     playerValues[index] = 1;
     calculatePlayerScore();
     //console.log("adjusted player score");
     //console.log(playerScore);
+  } else {
+    console.log("player loses!");
   }
   console.log("playerScore");
   console.log(playerScore);
@@ -74,23 +77,24 @@ let dealerScore = ""; //aces = 1 or 11
 let dealerValues = [];
 
 const calculateDealerScore = () => {
-  // if (dealerScore > 21) {
-  //   console.log("dealer loses!");
-  // }
+  const eleven = (element) => element === 11;
   const reducer = (previousValue, currentValue) => previousValue + currentValue;
   dealerScore = dealerValues.reduce(reducer);
   if (dealerScore < 17) {
     dealToDealer();
     //document.innerHTML...;
-  } else if (dealerScore > 21) {
+  } else if (dealerScore > 21 && dealerValues.some(eleven)) {
     let index = dealerValues.indexOf(11);
     dealerValues[index] = 1;
     calculateDealerScore();
     //console.log("adjusted player score");
     //console.log(playerScore);
+  } else if (dealerScore > 21) {
+    console.log("dealer loses!");
   } else {
     compareScores();
   }
+
   console.log("dealerScore");
   console.log(dealerScore);
 };
@@ -166,22 +170,23 @@ const calculateDealerValues = () => {
 };
 
 //put player card images out on the table
-const placePlayerCardImages = (cards) => {
-  for (i = 0; 0 < cards.length; i++) {
-    console.log(cards[i]);
-    let cardImage = document.createElement("img");
-    cardImage.src = `./images/${cards[i].rank}_of_${cards[i].suit}.png`;
-    playerHand.appendChild(cardImage);
-  }
+
+const placePlayerCardImages = () => {
+  // for (i = 0; 0 < playerCards.length; i++) {
+  //   console.log(playerCards[i]);
+  //   let cardImage = document.createElement("img");
+  //   cardImage.src = `./images/${playerCards[i].rank}_of_${playerCards[i].suit}.png`;
+  //   playerHand.appendChild(cardImage);
+  // }
 };
 
 //put dealer card images out on the table
-const placeDealerCardImages = (cards) => {
-  for (i = 0; 0 < cards.length; i++) {
-    let cardImage = document.createElement("img");
-    cardImage.src = `./images/${cards[i].rank}_of_${cards[i].suit}.png`;
-    dealerHand.appendChild(cardImage);
-  }
+const placeDealerCardImages = () => {
+  // for (i = 0; 0 < dealerCards.length; i++) {
+  //   let cardImage = document.createElement("img");
+  //   cardImage.src = `./images/${cards[i].rank}_of_${cards[i].suit}.png`;
+  //   dealerHand.appendChild(cardImage);
+  // }
 };
 
 //deal 2 random cards to player when deal button is pressed
@@ -202,15 +207,15 @@ dealButton.addEventListener("click", function (e) {
   dealToDealer();
   dealToPlayer();
   dealToDealer();
-  placePlayerCardImages(playerCards);
-  placeDealerCardImages(dealerCards);
+  placePlayerCardImages();
+  placeDealerCardImages();
   calculatePlayerValues();
 });
 
 //hit button event handler
 hitButton.addEventListener("click", function (e) {
   dealToPlayer();
-  placePlayerCardImages(playerCards);
+  placePlayerCardImages();
   calculatePlayerValues();
 });
 
