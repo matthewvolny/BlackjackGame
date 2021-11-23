@@ -170,23 +170,22 @@ const calculateDealerValues = () => {
 };
 
 //put player card images out on the table
-
 const placePlayerCardImages = () => {
-  // for (i = 0; 0 < playerCards.length; i++) {
-  //   console.log(playerCards[i]);
-  //   let cardImage = document.createElement("img");
-  //   cardImage.src = `./images/${playerCards[i].rank}_of_${playerCards[i].suit}.png`;
-  //   playerHand.appendChild(cardImage);
-  // }
+  for (i = 0; 0 < playerCards.length; i++) {
+    console.log(playerCards[i]);
+    let cardImage = document.createElement("img");
+    cardImage.src = `../images/${playerCards[i].rank}_of_${playerCards[i].suit}.png`;
+    playerHand.appendChild(cardImage);
+  }
 };
 
 //put dealer card images out on the table
 const placeDealerCardImages = () => {
-  // for (i = 0; 0 < dealerCards.length; i++) {
-  //   let cardImage = document.createElement("img");
-  //   cardImage.src = `./images/${cards[i].rank}_of_${cards[i].suit}.png`;
-  //   dealerHand.appendChild(cardImage);
-  // }
+  for (i = 0; 0 < dealerCards.length; i++) {
+    let cardImage = document.createElement("img");
+    cardImage.src = `../images/${cards[i].rank}_of_${cards[i].suit}.png`;
+    dealerHand.appendChild(cardImage);
+  }
 };
 
 //deal 2 random cards to player when deal button is pressed
