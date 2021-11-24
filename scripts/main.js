@@ -20,17 +20,17 @@ for (let i = 0; i < rank.length; i++) {
   }
 }
 
-//shuffle deck of cards
+//shuffle deck
 function shuffleDeck(deck) {
   let randomCardA;
   let randomCardB;
-  let tempX;
+  let temporary;
   for (let i = 0; i < deck.length; i++) {
     randomCardA = Math.floor(Math.random() * deck.length);
     randomCardB = Math.floor(Math.random() * deck.length);
-    tempX = deck[randomCardA];
+    temporary = deck[randomCardA];
     deck[randomCardA] = deck[randomCardB];
-    deck[randomCardB] = tempX;
+    deck[randomCardB] = temporary;
   }
   return;
 }
@@ -49,15 +49,9 @@ const compareScores = () => {
 let playerCards = [];
 let dealerCards = [];
 
-console.log("playerCards");
-console.log(playerCards);
-//console.log("dealerCards");
-//console.log(dealerCards);
-
 //score players cards
 let playerScore = ""; //aces = 1 or 11
 let playerValues = [];
-
 const calculatePlayerScore = () => {
   const eleven = (element) => element === 11;
   const reducer = (previousValue, currentValue) => previousValue + currentValue;
@@ -77,7 +71,6 @@ const calculatePlayerScore = () => {
 //score dealers cards
 let dealerScore = ""; //aces = 1 or 11
 let dealerValues = [];
-
 const calculateDealerScore = () => {
   const eleven = (element) => element === 11;
   const reducer = (previousValue, currentValue) => previousValue + currentValue;
@@ -94,6 +87,9 @@ const calculateDealerScore = () => {
   } else {
     compareScores();
   }
+  console.log(dealerValues);
+  console.log(dealerScore);
+  console.log("deal to dealer");
   msg3.innerHTML = `Dealer's score is ${dealerScore}`;
 };
 
@@ -147,7 +143,7 @@ const calculateDealerValues = () => {
       dealerCards[i].rank === "queen" ||
       dealerCards[i].rank === "king"
     ) {
-      playerValues.push(10);
+      dealerValues.push(10);
     } else {
       dealerValues.push(11);
     }
@@ -155,7 +151,7 @@ const calculateDealerValues = () => {
   }
 };
 
-//deal 2 random cards to player when deal button is pressed
+//deals a card to the player
 let dealToPlayer = () => {
   let cards = deck.shift();
   let rank = cards.rank;
@@ -166,7 +162,7 @@ let dealToPlayer = () => {
   return playerCards.push(cards);
 };
 
-//deal 2 random cards to dealer when deal button is pressed
+//deals a card to the dealer
 let dealToDealer = () => {
   let cards = deck.shift();
   let rank = cards.rank;
