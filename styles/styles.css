@@ -8,6 +8,17 @@ body * {
   box-sizing: inherit;
 }
 
+.card-back > img {
+  height: 100px;
+  position: absolute;
+  top: 262px;
+  left: 164px;
+}
+
+.transparent-card {
+  color: transparent;
+}
+
 .message-box {
   width: 900px;
   max-width: calc(100% - 20px);

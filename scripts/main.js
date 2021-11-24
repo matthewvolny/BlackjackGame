@@ -8,6 +8,7 @@ let msg2 = document.getElementById("messages2");
 let msg3 = document.getElementById("messages3");
 let msg4 = document.getElementById("messages4");
 let playAgainButton = document.getElementById("play-again");
+let cardBack = document.querySelector(".card-back");
 
 //deck of 52 cards
 // prettier-ignore
@@ -173,6 +174,13 @@ let dealToDealer = () => {
   return dealerCards.push(cards);
 };
 
+//hides the dealer's second card
+let hideDealersCard = () => {
+  let cardImage = document.createElement("img");
+  cardImage.src = "../images/card_back_copy.jpg";
+  cardBack.appendChild(cardImage);
+};
+
 //deal button event handler
 dealButton.addEventListener("click", function (e) {
   shuffleDeck(deck);
@@ -180,6 +188,7 @@ dealButton.addEventListener("click", function (e) {
   dealToDealer();
   dealToPlayer();
   dealToDealer();
+  hideDealersCard();
   calculatePlayerValues();
 });
 
@@ -192,6 +201,7 @@ hitButton.addEventListener("click", function (e) {
 //stand button event handler
 standButton.addEventListener("click", function (e) {
   calculateDealerValues();
+  cardBack.className = "transparent-card";
 });
 
 playAgainButton.addEventListener("click", function (e) {
