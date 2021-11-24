@@ -10,27 +10,36 @@ body * {
 
 .card-back > img {
   height: 100px;
-  position: absolute;
-  top: 262px;
-  left: 164px;
+  position: fixed;
+  top: 110px;
+  left: 179px;
+  opacity: 1;
 }
 
 .transparent-card {
-  opacity: 0;
+  opacity: 0.5;
 }
 
-.message-box {
+.message-box.error {
+  color: rgb(122, 0, 0);
+}
+
+#messages2 {
   width: 900px;
   max-width: calc(100% - 20px);
   margin: 0 auto 10px;
   height: 1em;
   font-size: 30px;
   color: black;
-  background-color: paleturquoise;
-}
-
-.message-box.error {
-  color: rgb(122, 0, 0);
+  background-color: #ea6b14;
+  padding: 5px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  z-index: 1;
+  position: absolute;
+  top: 235px;
+  left: 400px;
 }
 
 .table {
@@ -38,10 +47,10 @@ body * {
   max-width: calc(100% - 20px);
   border: 8px solid rgb(10, 43, 2);
   border-radius: 25px;
-  background: #95e1d3;
+  background: #e1e1e1;
   margin: 0 auto;
   color: white;
-  padding: 30px;
+  padding: 15px;
 }
 
 .player {
@@ -50,18 +59,21 @@ body * {
 
 .player-name {
   display: block;
-  font-size: 16px;
-  margin-bottom: 8px;
+  font-size: 25px;
+  margin-bottom: 20px;
 }
 
 .points {
   font-style: italic;
+  background-color: tomato;
+  color: white;
+  padding: 5px;
 }
 
 .hand {
   height: 120px;
-  background: rgb(48, 48, 23);
-  border-radius: 5px;
+  background: #1d1c1a;
+  border-radius: 7px;
 }
 
 .hand img {
@@ -82,7 +94,7 @@ button {
   padding: 10px 16px;
   border-radius: 10px;
   color: rgb(189, 229, 255);
-  background: rgb(0, 98, 163);
+  background: #acadaa;
 }
 
 button:hover {

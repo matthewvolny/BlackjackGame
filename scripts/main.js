@@ -3,12 +3,11 @@ let hitButton = document.getElementById("hit-button");
 let standButton = document.getElementById("stand-button");
 let playerHand = document.getElementById("player-hand");
 let dealerHand = document.getElementById("dealer-hand");
-let msg1 = document.getElementById("messages1");
 let msg2 = document.getElementById("messages2");
-let msg3 = document.getElementById("messages3");
-let msg4 = document.getElementById("messages4");
 let playAgainButton = document.getElementById("play-again");
 let cardBack = document.querySelector(".card-back");
+let playerPoints = document.getElementById("player-points");
+let dealerPoints = document.getElementById("dealer-points");
 
 //deck of 52 cards
 // prettier-ignore
@@ -39,11 +38,11 @@ function shuffleDeck(deck) {
 //compare player and dealer scores
 const compareScores = () => {
   if (playerScore > dealerScore) {
-    msg1.innerHTML = "You win!";
+    msg2.textContent = "You win!";
   } else if (playerScore === dealerScore) {
-    msg1.innerHTML = "Sorry, it's a tie, try again!";
+    msg2.textContent = "It's a tie, play again!";
   } else {
-    msg4.innerHTML = "Sorry, Dealer wins!";
+    msg2.textContent = "Sorry, Dealer wins!";
   }
 };
 
@@ -58,15 +57,15 @@ const calculatePlayerScore = () => {
   const reducer = (previousValue, currentValue) => previousValue + currentValue;
   playerScore = playerValues.reduce(reducer);
   if (playerScore === 21) {
-    msg1.innerHTML = "You win!";
+    msg2.textContent = "You win!";
   } else if (playerScore > 21 && playerValues.some(eleven)) {
     let index = playerValues.indexOf(11);
     playerValues[index] = 1;
     calculatePlayerScore();
   } else if (playerScore > 21) {
-    msg2.innerHTML = "Sorry, you bust!";
+    msg2.textContent = "You bust, dealer wins.";
   }
-  msg1.innerHTML = `Your score is ${playerScore}`;
+  playerPoints.textContent = playerScore;
 };
 
 //score dealers cards
@@ -77,27 +76,18 @@ const calculateDealerScore = () => {
   const reducer = (previousValue, currentValue) => previousValue + currentValue;
   dealerScore = dealerValues.reduce(reducer);
   if (dealerScore < 17) {
-    //console.log("LESS THAN 17");
-    //console.log(dealerScore);
     dealToDealer();
     calculateDealerValues();
   } else if (dealerScore > 21 && dealerValues.some(eleven)) {
     let index = dealerValues.indexOf(11);
     dealerValues[index] = 1;
-    //console.log("ACE CONVERSION");
     calculateDealerScore();
   } else if (dealerScore > 21) {
-    msg4.innerHTML = "Dealer busts";
-    msg2.innerHTML = "You win!";
-    console.log("OVER 21");
+    msg2.textContent = "Dealer busts, you win!";
   } else {
-    //console.log("COMPARES");
     compareScores();
   }
-  // console.log(dealerValues);
-  // console.log(dealerScore);
-  // console.log("deal to dealer");
-  msg3.innerHTML = `Dealer's score is ${dealerScore}`;
+  dealerPoints.textContent = dealerScore;
 };
 
 //convert player card ranks to values
@@ -156,7 +146,31 @@ const calculateDealerValues = () => {
     }
   }
   calculateDealerScore();
-  console.log(dealerScore);
+};
+
+//value of dealer's first card
+const calculateDealerFirstCardScore = () => {
+  if (
+    dealerCards[0].rank === "2" ||
+    dealerCards[0].rank === "3" ||
+    dealerCards[0].rank === "4" ||
+    dealerCards[0].rank === "5" ||
+    dealerCards[0].rank === "6" ||
+    dealerCards[0].rank === "7" ||
+    dealerCards[0].rank === "8" ||
+    dealerCards[0].rank === "9" ||
+    dealerCards[0].rank === "10"
+  ) {
+    dealerPoints.textContent = dealerCards[0].rank;
+  } else if (
+    dealerCards[0].rank === "jack" ||
+    dealerCards[0].rank === "queen" ||
+    dealerCards[0].rank === "king"
+  ) {
+    dealerPoints.textContent = 10;
+  } else {
+    dealerPoints.textContent = 11;
+  }
 };
 
 //deals a card to the player
@@ -197,6 +211,7 @@ dealButton.addEventListener("click", function (e) {
   dealToDealer();
   hideDealersCard();
   calculatePlayerValues();
+  calculateDealerFirstCardScore();
 });
 
 //hit button event handler
