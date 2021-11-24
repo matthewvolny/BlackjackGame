@@ -16,7 +16,7 @@ body * {
 }
 
 .transparent-card {
-  color: transparent;
+  opacity: 0;
 }
 
 .message-box {

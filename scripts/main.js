@@ -77,20 +77,26 @@ const calculateDealerScore = () => {
   const reducer = (previousValue, currentValue) => previousValue + currentValue;
   dealerScore = dealerValues.reduce(reducer);
   if (dealerScore < 17) {
+    //console.log("LESS THAN 17");
+    //console.log(dealerScore);
     dealToDealer();
+    calculateDealerValues();
   } else if (dealerScore > 21 && dealerValues.some(eleven)) {
     let index = dealerValues.indexOf(11);
     dealerValues[index] = 1;
+    //console.log("ACE CONVERSION");
     calculateDealerScore();
   } else if (dealerScore > 21) {
     msg4.innerHTML = "Dealer busts";
     msg2.innerHTML = "You win!";
+    console.log("OVER 21");
   } else {
+    //console.log("COMPARES");
     compareScores();
   }
-  console.log(dealerValues);
-  console.log(dealerScore);
-  console.log("deal to dealer");
+  // console.log(dealerValues);
+  // console.log(dealerScore);
+  // console.log("deal to dealer");
   msg3.innerHTML = `Dealer's score is ${dealerScore}`;
 };
 
@@ -148,8 +154,9 @@ const calculateDealerValues = () => {
     } else {
       dealerValues.push(11);
     }
-    calculateDealerScore();
   }
+  calculateDealerScore();
+  console.log(dealerScore);
 };
 
 //deals a card to the player
