@@ -38,10 +38,13 @@ function shuffleDeck(deck) {
 //compare player and dealer scores
 const compareScores = () => {
   if (playerScore > dealerScore) {
+    msg2.style.visibility = "visible";
     msg2.textContent = "You win!";
   } else if (playerScore === dealerScore) {
+    msg2.style.visibility = "visible";
     msg2.textContent = "It's a tie, play again!";
   } else {
+    msg2.style.visibility = "visible";
     msg2.textContent = "Sorry, Dealer wins!";
   }
 };
@@ -57,12 +60,14 @@ const calculatePlayerScore = () => {
   const reducer = (previousValue, currentValue) => previousValue + currentValue;
   playerScore = playerValues.reduce(reducer);
   if (playerScore === 21) {
+    msg2.style.visibility = "visible";
     msg2.textContent = "You win!";
   } else if (playerScore > 21 && playerValues.some(eleven)) {
     let index = playerValues.indexOf(11);
     playerValues[index] = 1;
     calculatePlayerScore();
   } else if (playerScore > 21) {
+    msg2.style.visibility = "visible";
     msg2.textContent = "You bust, dealer wins.";
   }
   playerPoints.textContent = playerScore;
@@ -83,6 +88,7 @@ const calculateDealerScore = () => {
     dealerValues[index] = 1;
     calculateDealerScore();
   } else if (dealerScore > 21) {
+    msg2.style.visibility = "visible";
     msg2.textContent = "Dealer busts, you win!";
   } else {
     compareScores();
@@ -223,7 +229,7 @@ hitButton.addEventListener("click", function (e) {
 //stand button event handler
 standButton.addEventListener("click", function (e) {
   calculateDealerValues();
-  cardBack.className = "transparent-card";
+  document.querySelector(".card-back > img").style.visibility = "hidden";
 });
 
 playAgainButton.addEventListener("click", function (e) {

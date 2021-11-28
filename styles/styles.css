@@ -11,13 +11,9 @@ body * {
 .card-back > img {
   height: 100px;
   position: fixed;
-  top: 110px;
-  left: 179px;
-  opacity: 1;
-}
-
-.transparent-card {
-  opacity: 0.5;
+  top: 125.5px;
+  left: 139px;
+  visibility: visible;
 }
 
 .message-box.error {
@@ -25,32 +21,33 @@ body * {
 }
 
 #messages2 {
-  width: 900px;
-  max-width: calc(100% - 20px);
-  margin: 0 auto 10px;
+  display: flex;
   height: 1em;
-  font-size: 30px;
+  font-size: 28px;
+  text-align: center;
   color: black;
   background-color: #ea6b14;
   padding: 5px;
   width: 150px;
   height: 150px;
+  justify-content: center;
+  align-items: center;
   border-radius: 50%;
   z-index: 1;
   position: absolute;
-  top: 235px;
-  left: 400px;
+  left: 60vw;
+  top: 23px;
+  visibility: hidden;
 }
 
 .table {
-  width: 900px;
-  max-width: calc(100% - 20px);
+  min-width: 500px;
+  max-width: 800px;
   border: 8px solid rgb(10, 43, 2);
   border-radius: 25px;
   background: #e1e1e1;
-  margin: 0 auto;
   color: white;
-  padding: 15px;
+  padding: 30px 15px 30px 15px;
 }
 
 .player {
@@ -122,4 +119,11 @@ button[type="reset"] {
 button[type="reset"]:hover {
   background: rgb(150, 7, 7);
   box-shadow: 0px 0px 10px 5px rgba(150, 7, 7, 0.63);
+}
+
+@media only screen and (min-width: 816px) {
+  #messages2 {
+    position: absolute;
+    left: 490px;
+  }
 }
